@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  pr.api.products:
+    image: ${DOCKER_REGISTRY-}prapiproducts
+    build:
+      context: .
+      dockerfile: Pr.API.Products/Dockerfile
+
+  pr.api.search:
+    image: ${DOCKER_REGISTRY-}prapisearch
+    build:
+      context: .
+      dockerfile: Pr.API.Search/Dockerfile
+    links:
+     - pr.api.products

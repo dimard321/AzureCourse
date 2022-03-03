@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  pr.api.products:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7105:80
+    networks:
+      - my-network
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  pr.api.search:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Services__Products=http://pr.api.products
+    ports:
+      - 6004:80
+    networks:
+      - my-network
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    links:
+     - pr.api.products
+
+networks:
+  my-network:
+     external: true
